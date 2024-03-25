@@ -1,0 +1,366 @@
+{
+    "sourceFile": "pkg/game/load.go",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 87,
+            "patches": [
+                {
+                    "date": 1711368229048,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1711368255802,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,2 +1,3 @@\n package game\n \n+// \n"
+                },
+                {
+                    "date": 1711368262617,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,3 +1,3 @@\n package game\n \n-// \n+// This is game \n"
+                },
+                {
+                    "date": 1711368278196,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,3 +1,3 @@\n package game\n \n-// This is game \n+\n"
+                },
+                {
+                    "date": 1711368287753,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,3 +1,3 @@\n package game\n \n-\n+var \n"
+                },
+                {
+                    "date": 1711368295528,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,3 +1,4 @@\n package game\n \n-var \n+\n+var maze []string\n"
+                },
+                {
+                    "date": 1711368301864,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,4 @@\n package game\n \n-\n+// \n var maze []string\n"
+                },
+                {
+                    "date": 1711368316078,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,4 @@\n package game\n \n-// \n+// load the \n var maze []string\n"
+                },
+                {
+                    "date": 1711368326777,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,4 @@\n package game\n \n-// load the \n+// load the maze file\n var maze []string\n"
+                },
+                {
+                    "date": 1711368335329,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,6 @@\n package game\n \n // load the maze file\n var maze []string\n+\n+func load\n"
+                },
+                {
+                    "date": 1711368353972,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,5 +2,7 @@\n \n // load the maze file\n var maze []string\n \n-func load\n+func loadMaze(file string) error {\n+\t\n+}\n"
+                },
+                {
+                    "date": 1711368360907,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,6 +3,6 @@\n // load the maze file\n var maze []string\n \n func loadMaze(file string) error {\n-\t\n+\tf, err := os\n }\n"
+                },
+                {
+                    "date": 1711368369799,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,11 @@\n package game\n \n+import \"os\"\n+\n // load the maze file\n var maze []string\n \n func loadMaze(file string) error {\n-\tf, err := os\n+\tf, err := os.Open(file)\n+\t\n }\n"
+                },
+                {
+                    "date": 1711368379031,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,6 +6,6 @@\n var maze []string\n \n func loadMaze(file string) error {\n \tf, err := os.Open(file)\n-\t\n+\tif err != nil \n }\n"
+                },
+                {
+                    "date": 1711368388919,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,6 +6,10 @@\n var maze []string\n \n func loadMaze(file string) error {\n \tf, err := os.Open(file)\n-\tif err != nil \n+\tif err != nil {\n+\t\treturn err\n+\t}\n+\t\n+\treturn nil\n }\n"
+                },
+                {
+                    "date": 1711368399169,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,7 +9,7 @@\n \tf, err := os.Open(file)\n \tif err != nil {\n \t\treturn err\n \t}\n-\t\n+\t// \n \treturn nil\n }\n"
+                },
+                {
+                    "date": 1711368406786,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,7 +9,8 @@\n \tf, err := os.Open(file)\n \tif err != nil {\n \t\treturn err\n \t}\n-\t// \n+\t// defer\n+\tdefer\n \treturn nil\n }\n"
+                },
+                {
+                    "date": 1711368412527,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,7 +10,9 @@\n \tif err != nil {\n \t\treturn err\n \t}\n \t// defer\n-\tdefer\n+\tdefer f.Close()\n+\n+\t\n \treturn nil\n }\n"
+                },
+                {
+                    "date": 1711368417997,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,14 +5,15 @@\n // load the maze file\n var maze []string\n \n func loadMaze(file string) error {\n+\t\n \tf, err := os.Open(file)\n \tif err != nil {\n \t\treturn err\n \t}\n \t// defer\n \tdefer f.Close()\n \n-\t\n+\n \treturn nil\n }\n"
+                },
+                {
+                    "date": 1711368423856,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,10 +4,11 @@\n \n // load the maze file\n var maze []string\n \n+// load\n func loadMaze(file string) error {\n-\t\n+\t//\n \tf, err := os.Open(file)\n \tif err != nil {\n \t\treturn err\n \t}\n"
+                },
+                {
+                    "date": 1711368431237,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n \n // load the maze file\n var maze []string\n \n-// load\n+// loadMaze is \n func loadMaze(file string) error {\n \t//\n \tf, err := os.Open(file)\n \tif err != nil {\n"
+                },
+                {
+                    "date": 1711368437465,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n \n // load the maze file\n var maze []string\n \n-// loadMaze is \n+// loadMaze is load \n func loadMaze(file string) error {\n \t//\n \tf, err := os.Open(file)\n \tif err != nil {\n"
+                },
+                {
+                    "date": 1711368447438,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n \n // load the maze file\n var maze []string\n \n-// loadMaze is load \n+// loadMaze is load maze file to \n func loadMaze(file string) error {\n \t//\n \tf, err := os.Open(file)\n \tif err != nil {\n"
+                },
+                {
+                    "date": 1711368454998,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,11 +4,11 @@\n \n // load the maze file\n var maze []string\n \n-// loadMaze is load maze file to \n+// loadMaze is load maze file to game\n func loadMaze(file string) error {\n-\t//\n+\t// \n \tf, err := os.Open(file)\n \tif err != nil {\n \t\treturn err\n \t}\n"
+                },
+                {
+                    "date": 1711368466699,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,15 +6,14 @@\n var maze []string\n \n // loadMaze is load maze file to game\n func loadMaze(file string) error {\n-\t// \n \tf, err := os.Open(file)\n \tif err != nil {\n \t\treturn err\n \t}\n \t// defer\n \tdefer f.Close()\n \n-\n+\tscanner := \n \treturn nil\n }\n"
+                },
+                {
+                    "date": 1711368472849,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,10 @@\n package game\n \n-import \"os\"\n+import (\n+\t\"bufio\"\n+\t\"os\"\n+)\n \n // load the maze file\n var maze []string\n \n@@ -13,7 +16,7 @@\n \t}\n \t// defer\n \tdefer f.Close()\n \n-\tscanner := \n+\tscanner := bufio.N\n \treturn nil\n }\n"
+                },
+                {
+                    "date": 1711368478590,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,7 +16,8 @@\n \t}\n \t// defer\n \tdefer f.Close()\n \n-\tscanner := bufio.N\n+\tscanner := bufio.NewScanner(f)\n+\t\n \treturn nil\n }\n"
+                },
+                {
+                    "date": 1711368485853,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,7 +17,8 @@\n \t// defer\n \tdefer f.Close()\n \n \tscanner := bufio.NewScanner(f)\n-\t\n+\tfor scanner.S\n+\n \treturn nil\n }\n"
+                },
+                {
+                    "date": 1711368501732,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,8 +17,10 @@\n \t// defer\n \tdefer f.Close()\n \n \tscanner := bufio.NewScanner(f)\n-\tfor scanner.S\n+\tfor scanner.Scan() {\n+\t\tline ；= scanner.Tex\n+\t}\n \n \treturn nil\n }\n"
+                },
+                {
+                    "date": 1711368508616,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n \tdefer f.Close()\n \n \tscanner := bufio.NewScanner(f)\n \tfor scanner.Scan() {\n-\t\tline ；= scanner.Tex\n+\t\tline := scanner.\n \t}\n \n \treturn nil\n }\n"
+                },
+                {
+                    "date": 1711368515411,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,10 @@\n \tdefer f.Close()\n \n \tscanner := bufio.NewScanner(f)\n \tfor scanner.Scan() {\n-\t\tline := scanner.\n+\t\tline := scanner.Text()\n+\t\tmaze = \n \t}\n \n \treturn nil\n }\n"
+                },
+                {
+                    "date": 1711368565720,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,13 +15,13 @@\n \t\treturn err\n \t}\n \t// defer\n \tdefer f.Close()\n-\n+\t// \n \tscanner := bufio.NewScanner(f)\n \tfor scanner.Scan() {\n \t\tline := scanner.Text()\n-\t\tmaze = \n+\t\tmaze = append(maze, line)\n \t}\n \n \treturn nil\n }\n"
+                },
+                {
+                    "date": 1711368571214,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n \t\treturn err\n \t}\n \t// defer\n \tdefer f.Close()\n-\t// \n+\t// buffered \n \tscanner := bufio.NewScanner(f)\n \tfor scanner.Scan() {\n \t\tline := scanner.Text()\n \t\tmaze = append(maze, line)\n"
+                },
+                {
+                    "date": 1711368576608,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n \t\treturn err\n \t}\n \t// defer\n \tdefer f.Close()\n-\t// buffered \n+\t// buffered I/O\n \tscanner := bufio.NewScanner(f)\n \tfor scanner.Scan() {\n \t\tline := scanner.Text()\n \t\tmaze = append(maze, line)\n"
+                },
+                {
+                    "date": 1711368632053,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,8 +17,9 @@\n \t// defer\n \tdefer f.Close()\n \t// buffered I/O\n \tscanner := bufio.NewScanner(f)\n+\t// reading data such as a file of newline-delimited lines of text\n \tfor scanner.Scan() {\n \t\tline := scanner.Text()\n \t\tmaze = append(maze, line)\n \t}\n"
+                },
+                {
+                    "date": 1711369352611,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n \tf, err := os.Open(file)\n \tif err != nil {\n \t\treturn err\n \t}\n-\t// defer\n+\t// defer puts f.Close() in the call stack\n \tdefer f.Close()\n \t// buffered I/O\n \tscanner := bufio.NewScanner(f)\n \t// reading data such as a file of newline-delimited lines of text\n"
+                },
+                {
+                    "date": 1711369361624,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n \tf, err := os.Open(file)\n \tif err != nil {\n \t\treturn err\n \t}\n-\t// defer puts f.Close() in the call stack\n+\t// defer puts f.Close() in the *call stack*\n \tdefer f.Close()\n \t// buffered I/O\n \tscanner := bufio.NewScanner(f)\n \t// reading data such as a file of newline-delimited lines of text\n"
+                },
+                {
+                    "date": 1711369379493,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,8 @@\n \t\"os\"\n )\n \n // load the maze file\n-var maze []string\n \n // loadMaze is load maze file to game\n func loadMaze(file string) error {\n \tf, err := os.Open(file)\n"
+                },
+                {
+                    "date": 1711369386702,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,8 +5,9 @@\n \t\"os\"\n )\n \n // load the maze file\n+var maze []string\n \n // loadMaze is load maze file to game\n func loadMaze(file string) error {\n \tf, err := os.Open(file)\n@@ -24,4 +25,6 @@\n \t}\n \n \treturn nil\n }\n+\n+\n"
+                },
+                {
+                    "date": 1711369395404,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,5 +26,5 @@\n \n \treturn nil\n }\n \n-\n+// Load\n"
+                },
+                {
+                    "date": 1711369411437,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,4 +27,5 @@\n \treturn nil\n }\n \n // Load\n+func Load\n"
+                },
+                {
+                    "date": 1711369421832,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,5 +27,5 @@\n \treturn nil\n }\n \n // Load\n-func Load\n+func Load(file string)\n"
+                },
+                {
+                    "date": 1711369434204,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,5 +27,5 @@\n \treturn nil\n }\n \n // Load\n-func Load(file string)\n+func Load(file string) []error\n"
+                },
+                {
+                    "date": 1711369441900,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,5 +27,7 @@\n \treturn nil\n }\n \n // Load\n-func Load(file string) []error\n+func Load(file string) ([]string, error) {\n+\t\n+}\n"
+                },
+                {
+                    "date": 1711369455889,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,6 +28,6 @@\n }\n \n // Load\n func Load(file string) ([]string, error) {\n-\t\n+\tS\n }\n"
+                },
+                {
+                    "date": 1711369462653,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,6 +28,6 @@\n }\n \n // Load\n func Load(file string) ([]string, error) {\n-\tS\n+\t\n }\n"
+                },
+                {
+                    "date": 1711369609963,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n // load the maze file\n var maze []string\n \n // loadMaze is load maze file to game\n-func loadMaze(file string) error {\n+func LoadMaze(file string) error {\n \tf, err := os.Open(file)\n \tif err != nil {\n \t\treturn err\n \t}\n@@ -28,6 +28,6 @@\n }\n \n // Load\n func Load(file string) ([]string, error) {\n-\t\n+\n }\n"
+                },
+                {
+                    "date": 1711369616916,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n // load the maze file\n var maze []string\n \n // loadMaze is load maze file to game\n-func LoadMaze(file string) error {\n+func loadMaze(file string) error {\n \tf, err := os.Open(file)\n \tif err != nil {\n \t\treturn err\n \t}\n"
+                },
+                {
+                    "date": 1711369692836,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n // load the maze file\n var maze []string\n \n // loadMaze is load maze file to game\n-func loadMaze(file string) error {\n+func loadMaze(wfile string) error {\n \tf, err := os.Open(file)\n \tif err != nil {\n \t\treturn err\n \t}\n"
+                },
+                {
+                    "date": 1711369698080,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,16 +1,17 @@\n package game\n \n import (\n \t\"bufio\"\n+\t\"io\"\n \t\"os\"\n )\n \n // load the maze file\n var maze []string\n \n // loadMaze is load maze file to game\n-func loadMaze(wfile string) error {\n+func loadMaze(w io.Writer string) error {\n \tf, err := os.Open(file)\n \tif err != nil {\n \t\treturn err\n \t}\n"
+                },
+                {
+                    "date": 1711369707232,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n // load the maze file\n var maze []string\n \n // loadMaze is load maze file to game\n-func loadMaze(w io.Writer string) error {\n+func loadMaze(w io.Writer, file string) error {\n \tf, err := os.Open(file)\n \tif err != nil {\n \t\treturn err\n \t}\n@@ -29,6 +29,6 @@\n }\n \n // Load\n func Load(file string) ([]string, error) {\n-\n+\t\n }\n"
+                },
+                {
+                    "date": 1711369720065,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,6 +29,6 @@\n }\n \n // Load\n func Load(file string) ([]string, error) {\n-\t\n+\tloadMaze(os)\n }\n"
+                },
+                {
+                    "date": 1711369727448,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,6 +29,6 @@\n }\n \n // Load\n func Load(file string) ([]string, error) {\n-\tloadMaze(os)\n+\tloadMaze(os.Stdout, file)\n }\n"
+                },
+                {
+                    "date": 1711369733689,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,6 +29,6 @@\n }\n \n // Load\n func Load(file string) ([]string, error) {\n-\tloadMaze(os.Stdout, file)\n+\terr loadMaze(os.Stdout, file)\n }\n"
+                },
+                {
+                    "date": 1711369743343,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,6 +29,7 @@\n }\n \n // Load\n func Load(file string) ([]string, error) {\n-\terr loadMaze(os.Stdout, file)\n+\terr := loadMaze(os.Stdout, file)\n+\tif \n }\n"
+                },
+                {
+                    "date": 1711369749741,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,6 +30,6 @@\n \n // Load\n func Load(file string) ([]string, error) {\n \terr := loadMaze(os.Stdout, file)\n-\tif \n+\tif err != \n }\n"
+                },
+                {
+                    "date": 1711369755155,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,6 +30,8 @@\n \n // Load\n func Load(file string) ([]string, error) {\n \terr := loadMaze(os.Stdout, file)\n-\tif err != \n+\tif err != nil {\n+\t\treturn \n+\t}\n }\n"
+                },
+                {
+                    "date": 1711369764942,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -31,7 +31,7 @@\n // Load\n func Load(file string) ([]string, error) {\n \terr := loadMaze(os.Stdout, file)\n \tif err != nil {\n-\t\treturn \n+\t\treturn nil, \n \t}\n }\n"
+                },
+                {
+                    "date": 1711369772467,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -31,7 +31,8 @@\n // Load\n func Load(file string) ([]string, error) {\n \terr := loadMaze(os.Stdout, file)\n \tif err != nil {\n-\t\treturn nil, \n+\t\treturn nil, err\n \t}\n+\treturn ma\n }\n"
+                },
+                {
+                    "date": 1711370434996,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -33,6 +33,7 @@\n \terr := loadMaze(os.Stdout, file)\n \tif err != nil {\n \t\treturn nil, err\n \t}\n-\treturn ma\n+\treturn maze, nil\n }\n+\n"
+                },
+                {
+                    "date": 1711370440213,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -36,4 +36,5 @@\n \t}\n \treturn maze, nil\n }\n \n+//\n"
+                },
+                {
+                    "date": 1711370472067,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -36,5 +36,5 @@\n \t}\n \treturn maze, nil\n }\n \n-//\n+// Str\n"
+                },
+                {
+                    "date": 1711370482583,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -36,5 +36,6 @@\n \t}\n \treturn maze, nil\n }\n \n-// Str\n+// ToString\n+func \n"
+                },
+                {
+                    "date": 1711370569569,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n // load the maze file\n var maze []string\n \n // loadMaze is load maze file to game\n-func loadMaze(w io.Writer, file string) error {\n+func ()loadMaze(w io.Writer, file string) error {\n \tf, err := os.Open(file)\n \tif err != nil {\n \t\treturn err\n \t}\n@@ -37,5 +37,11 @@\n \treturn maze, nil\n }\n \n // ToString\n-func \n+func ToString() string {\n+\tvar result string\n+\tfor _, line := range maze {\n+\t\tresult += line + \"\\n\"\n+\t}\n+\treturn result\n+}\n"
+                },
+                {
+                    "date": 1711370579089,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n // load the maze file\n var maze []string\n \n // loadMaze is load maze file to game\n-func ()loadMaze(w io.Writer, file string) error {\n+func (game Game) loadMaze(w io.Writer, file string) error {\n \tf, err := os.Open(file)\n \tif err != nil {\n \t\treturn err\n \t}\n@@ -28,9 +28,9 @@\n \treturn nil\n }\n \n // Load\n-func Load(file string) ([]string, error) {\n+func (game Game)Load(file string) ([]string, error) {\n \terr := loadMaze(os.Stdout, file)\n \tif err != nil {\n \t\treturn nil, err\n \t}\n"
+                },
+                {
+                    "date": 1711370585571,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,8 +29,9 @@\n }\n \n // Load\n func (game Game)Load(file string) ([]string, error) {\n+\t\n \terr := loadMaze(os.Stdout, file)\n \tif err != nil {\n \t\treturn nil, err\n \t}\n"
+                },
+                {
+                    "date": 1711370592059,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,9 +29,9 @@\n }\n \n // Load\n func (game Game)Load(file string) ([]string, error) {\n-\t\n+\tgame\n \terr := loadMaze(os.Stdout, file)\n \tif err != nil {\n \t\treturn nil, err\n \t}\n"
+                },
+                {
+                    "date": 1711370600923,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,10 +29,10 @@\n }\n \n // Load\n func (game Game)Load(file string) ([]string, error) {\n-\tgame\n-\terr := loadMaze(os.Stdout, file)\n+\tgame := Game{}\n+\terr := game.loadMaze()loadMaze(os.Stdout, file)\n \tif err != nil {\n \t\treturn nil, err\n \t}\n \treturn maze, nil\n"
+                },
+                {
+                    "date": 1711370664320,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,11 +28,11 @@\n \treturn nil\n }\n \n // Load\n-func (game Game)Load(file string) ([]string, error) {\n-\tgame := Game{}\n-\terr := game.loadMaze()loadMaze(os.Stdout, file)\n+func (game Game) Load(file string) ([]string, error) {\n+\tgame := NewGame()\n+\terr := game.loadMaze(os.Stdout, file)\n \tif err != nil {\n \t\treturn nil, err\n \t}\n \treturn maze, nil\n"
+                },
+                {
+                    "date": 1711370670615,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,9 +29,9 @@\n }\n \n // Load\n func (game Game) Load(file string) ([]string, error) {\n-\tgame := NewGame()\n+\tgame := NewGame(){}\n \terr := game.loadMaze(os.Stdout, file)\n \tif err != nil {\n \t\treturn nil, err\n \t}\n"
+                },
+                {
+                    "date": 1711370680201,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,9 +29,9 @@\n }\n \n // Load\n func (game Game) Load(file string) ([]string, error) {\n-\tgame := NewGame(){}\n+\tgame := NewGame(){maze: []string{}\n \terr := game.loadMaze(os.Stdout, file)\n \tif err != nil {\n \t\treturn nil, err\n \t}\n"
+                },
+                {
+                    "date": 1711370694423,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,9 +29,9 @@\n }\n \n // Load\n func (game Game) Load(file string) ([]string, error) {\n-\tgame := NewGame(){maze: []string{}\n+\tgame := NewGame()\n \terr := game.loadMaze(os.Stdout, file)\n \tif err != nil {\n \t\treturn nil, err\n \t}\n"
+                },
+                {
+                    "date": 1711370701981,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,8 +30,9 @@\n \n // Load\n func (game Game) Load(file string) ([]string, error) {\n \tgame := NewGame()\n+\tgame \n \terr := game.loadMaze(os.Stdout, file)\n \tif err != nil {\n \t\treturn nil, err\n \t}\n"
+                },
+                {
+                    "date": 1711370715280,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,9 +30,9 @@\n \n // Load\n func (game Game) Load(file string) ([]string, error) {\n \tgame := NewGame()\n-\tgame \n+\n \terr := game.loadMaze(os.Stdout, file)\n \tif err != nil {\n \t\treturn nil, err\n \t}\n"
+                },
+                {
+                    "date": 1711370723047,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,9 +29,9 @@\n }\n \n // Load\n func (game Game) Load(file string) ([]string, error) {\n-\tgame := NewGame()\n+\tgame = NewGame()\n \n \terr := game.loadMaze(os.Stdout, file)\n \tif err != nil {\n \t\treturn nil, err\n"
+                },
+                {
+                    "date": 1711370728221,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,9 +29,9 @@\n }\n \n // Load\n func (game Game) Load(file string) ([]string, error) {\n-\tgame = NewGame()\n+\tgame = *NewGame()\n \n \terr := game.loadMaze(os.Stdout, file)\n \tif err != nil {\n \t\treturn nil, err\n"
+                },
+                {
+                    "date": 1711370734411,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,9 +30,8 @@\n \n // Load\n func (game Game) Load(file string) ([]string, error) {\n \tgame = *NewGame()\n-\n \terr := game.loadMaze(os.Stdout, file)\n \tif err != nil {\n \t\treturn nil, err\n \t}\n"
+                },
+                {
+                    "date": 1711370741021,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n \tfor scanner.Scan() {\n \t\tline := scanner.Text()\n \t\tmaze = append(maze, line)\n \t}\n-\n+\t\n \treturn nil\n }\n \n // Load\n"
+                },
+                {
+                    "date": 1711370746529,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n \tfor scanner.Scan() {\n \t\tline := scanner.Text()\n \t\tmaze = append(maze, line)\n \t}\n-\t\n+\tgame\n \treturn nil\n }\n \n // Load\n"
+                },
+                {
+                    "date": 1711370766940,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,10 @@\n \tfor scanner.Scan() {\n \t\tline := scanner.Text()\n \t\tmaze = append(maze, line)\n \t}\n-\tgame\n+\tgame.maze = maze\n+\tmaze = nil // Reset the maze variable\n \treturn nil\n }\n \n // Load\n"
+                },
+                {
+                    "date": 1711370836553,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,16 +23,13 @@\n \tfor scanner.Scan() {\n \t\tline := scanner.Text()\n \t\tmaze = append(maze, line)\n \t}\n-\tgame.maze = maze\n-\tmaze = nil // Reset the maze variable\n \treturn nil\n }\n \n // Load\n func (game Game) Load(file string) ([]string, error) {\n-\tgame = *NewGame()\n \terr := game.loadMaze(os.Stdout, file)\n \tif err != nil {\n \t\treturn nil, err\n \t}\n"
+                },
+                {
+                    "date": 1711370857820,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -36,9 +36,9 @@\n \treturn maze, nil\n }\n \n // ToString\n-func ToString() string {\n+func (game Game)ToString() string {\n \tvar result string\n \tfor _, line := range maze {\n \t\tresult += line + \"\\n\"\n \t}\n"
+                },
+                {
+                    "date": 1711370864085,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -36,9 +36,9 @@\n \treturn maze, nil\n }\n \n // ToString\n-func (game Game)ToString() string {\n+func (game &Game) ToString() string {\n \tvar result string\n \tfor _, line := range maze {\n \t\tresult += line + \"\\n\"\n \t}\n"
+                },
+                {
+                    "date": 1711370954571,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n // load the maze file\n var maze []string\n \n // loadMaze is load maze file to game\n-func (game Game) loadMaze(w io.Writer, file string) error {\n+func (game *Game) loadMaze(file string) error {\n \tf, err := os.Open(file)\n \tif err != nil {\n \t\treturn err\n \t}\n@@ -27,18 +27,18 @@\n \treturn nil\n }\n \n // Load\n-func (game Game) Load(file string) ([]string, error) {\n+func (game *Game) Load(file string) ([]string, error) {\n \terr := game.loadMaze(os.Stdout, file)\n \tif err != nil {\n \t\treturn nil, err\n \t}\n \treturn maze, nil\n }\n \n // ToString\n-func (game &Game) ToString() string {\n+func (game *Game) ToString() string {\n \tvar result string\n \tfor _, line := range maze {\n \t\tresult += line + \"\\n\"\n \t}\n"
+                },
+                {
+                    "date": 1711370962332,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,8 @@\n package game\n \n import (\n \t\"bufio\"\n-\t\"io\"\n \t\"os\"\n )\n \n // load the maze file\n@@ -28,9 +27,9 @@\n }\n \n // Load\n func (game *Game) Load(file string) ([]string, error) {\n-\terr := game.loadMaze(os.Stdout, file)\n+\terr := game.loadMaze(file)\n \tif err != nil {\n \t\treturn nil, err\n \t}\n \treturn maze, nil\n"
+                },
+                {
+                    "date": 1711371121288,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -31,9 +31,9 @@\n \terr := game.loadMaze(file)\n \tif err != nil {\n \t\treturn nil, err\n \t}\n-\treturn maze, nil\n+\treturn nil\n }\n \n // ToString\n func (game *Game) ToString() string {\n"
+                },
+                {
+                    "date": 1711371126825,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,12 +26,12 @@\n \treturn nil\n }\n \n // Load\n-func (game *Game) Load(file string) ([]string, error) {\n+func (game *Game) Load(file string) error {\n \terr := game.loadMaze(file)\n \tif err != nil {\n-\t\treturn nil, err\n+\t\treturn err\n \t}\n \treturn nil\n }\n \n"
+                },
+                {
+                    "date": 1711371132298,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -31,9 +31,9 @@\n \terr := game.loadMaze(file)\n \tif err != nil {\n \t\treturn err\n \t}\n-\tgame.\n+\tgame.Maze\n \treturn nil\n }\n \n // ToString\n"
+                }
+            ],
+            "date": 1711368229048,
+            "name": "Commit-0",
+            "content": "package game\n\n"
+        }
+    ]
+}

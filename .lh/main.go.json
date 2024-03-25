@@ -1,0 +1,90 @@
+{
+    "sourceFile": "main.go",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 18,
+            "patches": [
+                {
+                    "date": 1711367168315,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1711370131833,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,9 @@\n package main\n \n import (\n \t\"fmt\"\n+\t\"\"\n )\n \n func Main() {\n \t// initialize game\n"
+                },
+                {
+                    "date": 1711370145286,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,16 +1,15 @@\n package main\n \n import (\n \t\"fmt\"\n-\t\"\"\n )\n \n func Main() {\n \t// initialize game\n \n \t// load game resources\n-\n+\t\n \t// game loop\n \tfor {\n \t\t// update screen\n \n"
+                },
+                {
+                    "date": 1711370341214,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,15 +1,16 @@\n package main\n \n import (\n \t\"fmt\"\n+\t\"\"\n )\n \n func Main() {\n \t// initialize game\n \n \t// load game resources\n-\t\n+\n \t// game loop\n \tfor {\n \t\t// update screen\n \n"
+                },
+                {
+                    "date": 1711370347318,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n package main\n \n import (\n \t\"fmt\"\n-\t\"\"\n+\t\"https://github.com/FeiNiaoBF/Pac_Go\"\n )\n \n func Main() {\n \t// initialize game\n"
+                },
+                {
+                    "date": 1711370376183,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n package main\n \n import (\n \t\"fmt\"\n-\t\"https://github.com/FeiNiaoBF/Pac_Go\"\n+\t\"github.com/FeiNiaoBF/Pac_Go/\"\n )\n \n func Main() {\n \t// initialize game\n"
+                },
+                {
+                    "date": 1711370392995,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,16 +1,17 @@\n package main\n \n import (\n \t\"fmt\"\n-\t\"github.com/FeiNiaoBF/Pac_Go/\"\n+\n+\t\"github.com/FeiNiaoBF/Pac_Go/pkg/game\"\n )\n \n func Main() {\n \t// initialize game\n \n \t// load game resources\n-\n+\t\n \t// game loop\n \tfor {\n \t\t// update screen\n \n"
+                },
+                {
+                    "date": 1711370398978,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n func Main() {\n \t// initialize game\n \n \t// load game resources\n-\t\n+\tgame.Load(\"maze.txt\")\n \t// game loop\n \tfor {\n \t\t// update screen\n \n"
+                },
+                {
+                    "date": 1711370404101,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,13 +5,16 @@\n \n \t\"github.com/FeiNiaoBF/Pac_Go/pkg/game\"\n )\n \n+\n+\n+\n func Main() {\n \t// initialize game\n \n \t// load game resources\n-\tgame.Load(\"maze.txt\")\n+\tgame.Load()\n \t// game loop\n \tfor {\n \t\t// update screen\n \n"
+                },
+                {
+                    "date": 1711370410884,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,10 +6,12 @@\n \t\"github.com/FeiNiaoBF/Pac_Go/pkg/game\"\n )\n \n \n+const (\n+\tfilePath\n+)\n \n-\n func Main() {\n \t// initialize game\n \n \t// load game resources\n"
+                },
+                {
+                    "date": 1711370971089,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,16 +7,16 @@\n )\n \n \n const (\n-\tfilePath\n+\tfilePath = \"maze.txt\"\n )\n \n func Main() {\n \t// initialize game\n \n \t// load game resources\n-\tgame.Load()\n+\tgame.Load(filePath)\n \t// game loop\n \tfor {\n \t\t// update screen\n \n"
+                },
+                {
+                    "date": 1711370976484,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,14 +5,14 @@\n \n \t\"github.com/FeiNiaoBF/Pac_Go/pkg/game\"\n )\n \n-\n const (\n \tfilePath = \"maze.txt\"\n )\n \n func Main() {\n+\t\n \t// initialize game\n \n \t// load game resources\n \tgame.Load(filePath)\n"
+                },
+                {
+                    "date": 1711370984158,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n \tfilePath = \"maze.txt\"\n )\n \n func Main() {\n-\t\n+\tgame = N\n \t// initialize game\n \n \t// load game resources\n \tgame.Load(filePath)\n"
+                },
+                {
+                    "date": 1711370990942,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n \tfilePath = \"maze.txt\"\n )\n \n func Main() {\n-\tgame = N\n+\tgame = NewGame()\n \t// initialize game\n \n \t// load game resources\n \tgame.Load(filePath)\n"
+                },
+                {
+                    "date": 1711370996494,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n \tfilePath = \"maze.txt\"\n )\n \n func Main() {\n-\tgame = NewGame()\n+\tgame := game.()\n \t// initialize game\n \n \t// load game resources\n \tgame.Load(filePath)\n"
+                },
+                {
+                    "date": 1711371002115,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n \tfilePath = \"maze.txt\"\n )\n \n func Main() {\n-\tgame := game.()\n+\tgame := game.NewGame()\n \t// initialize game\n \n \t// load game resources\n \tgame.Load(filePath)\n"
+                },
+                {
+                    "date": 1711371046558,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n \tgame := game.NewGame()\n \t// initialize game\n \n \t// load game resources\n-\tgame.Load(filePath)\n+\tgamegame.Load(filePath)\n \t// game loop\n \tfor {\n \t\t// update screen\n \n"
+                },
+                {
+                    "date": 1711371052147,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n \tgame := game.NewGame()\n \t// initialize game\n \n \t// load game resources\n-\tgamegame.Load(filePath)\n+\tgame. game.Load(filePath)\n \t// game loop\n \tfor {\n \t\t// update screen\n \n"
+                },
+                {
+                    "date": 1711371059748,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n \tgame := game.NewGame()\n \t// initialize game\n \n \t// load game resources\n-\tgame.m game.Load(filePath)\n+\tgame\n \t// game loop\n \tfor {\n \t\t// update screen\n \n"
+                }
+            ],
+            "date": 1711367168315,
+            "name": "Commit-0",
+            "content": "package main\n\nimport (\n\t\"fmt\"\n)\n\nfunc Main() {\n\t// initialize game\n\n\t// load game resources\n\n\t// game loop\n\tfor {\n\t\t// update screen\n\n\t\t// process input\n\n\t\t// process movement\n\n\t\t// process collisions\n\n\t\t// check game over\n\t\tfmt.Println(\"Hello, Pac Go!\")\n\t\tbreak\n\n\t\t// repeat\n\t}\n}\n"
+        }
+    ]
+}

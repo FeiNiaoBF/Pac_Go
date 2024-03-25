@@ -1,0 +1,62 @@
+{
+    "sourceFile": "data/maze/random_maze.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 11,
+            "patches": [
+                {
+                    "date": 1711371911348,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1711371916512,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n def generate_maze(width, height):\n     symbols = ['#', '.', 'P', 'G', 'X']\n     maze = []\n     for _ in range(height):\n-        row = ''.join(random.choices(symbols, weights=[0.5, 0.6, 0.05, 0.1, 0.05], k=width))\n+        row = ''.join(random.choices(symbols, weights=[0.5, 0.3, 0.05, 0.1, 0.05], k=width))\n         maze.append(row)\n     return maze\n \n def print_maze(maze):\n"
+                },
+                {
+                    "date": 1711371923304,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n def generate_maze(width, height):\n     symbols = ['#', '.', 'P', 'G', 'X']\n     maze = []\n     for _ in range(height):\n-        row = ''.join(random.choices(symbols, weights=[0.5, 0.3, 0.05, 0.1, 0.05], k=width))\n+        row = ''.join(random.choices(symbols, weights=[0.5, 0.4, 1, 0.1, 0.05], k=width))\n         maze.append(row)\n     return maze\n \n def print_maze(maze):\n"
+                },
+                {
+                    "date": 1711371929767,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n def generate_maze(width, height):\n     symbols = ['#', '.', 'P', 'G', 'X']\n     maze = []\n     for _ in range(height):\n-        row = ''.join(random.choices(symbols, weights=[0.5, 0.4, 1, 0.1, 0.05], k=width))\n+        row = ''.join(random.choices(symbols, weights=[0.5, 0.4, 0., 0.1, 0.05], k=width))\n         maze.append(row)\n     return maze\n \n def print_maze(maze):\n"
+                },
+                {
+                    "date": 1711371938954,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n def generate_maze(width, height):\n     symbols = ['#', '.', 'P', 'G', 'X']\n     maze = []\n     for _ in range(height):\n-        row = ''.join(random.choices(symbols, weights=[0.5, 0.4, 0., 0.1, 0.05], k=width))\n+        row = ''.join(random.choices(symbols, weights=[0.5, 0.4, 0.00001, 0., 0.05], k=width))\n         maze.append(row)\n     return maze\n \n def print_maze(maze):\n"
+                },
+                {
+                    "date": 1711371954257,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n def generate_maze(width, height):\n     symbols = ['#', '.', 'P', 'G', 'X']\n     maze = []\n     for _ in range(height):\n-        row = ''.join(random.choices(symbols, weights=[0.5, 0.4, 0.00001, 0., 0.05], k=width))\n+        row = ''.join(random.choices(symbols, weights=[0.3, 0.4, 0.00001, 0.05, 0.05], k=width))\n         maze.append(row)\n     return maze\n \n def print_maze(maze):\n"
+                },
+                {
+                    "date": 1711371963044,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n def generate_maze(width, height):\n     symbols = ['#', '.', 'P', 'G', 'X']\n     maze = []\n     for _ in range(height):\n-        row = ''.join(random.choices(symbols, weights=[0.3, 0.4, 0.00001, 0.05, 0.05], k=width))\n+        row = ''.join(random.choices(symbols, weights=[0.3, 0.4, 0.01, 0.05, 0.05], k=width))\n         maze.append(row)\n     return maze\n \n def print_maze(maze):\n"
+                },
+                {
+                    "date": 1711372152003,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n def generate_maze(width, height):\n     symbols = ['#', '.', 'P', 'G', 'X']\n     maze = []\n     for _ in range(height):\n-        row = ''.join(random.choices(symbols, weights=[0.3, 0.4, 0.01, 0.05, 0.05], k=width))\n+        row = ''.join(random.choices(symbols))\n         maze.append(row)\n     return maze\n \n def print_maze(maze):\n"
+                },
+                {
+                    "date": 1711372159072,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n def generate_maze(width, height):\n     symbols = ['#', '.', 'P', 'G', 'X']\n     maze = []\n     for _ in range(height):\n-        row = ''.join(random.choices(symbols))\n+        row = ''.join(random.choices(symbols) for )\n         maze.append(row)\n     return maze\n \n def print_maze(maze):\n"
+                },
+                {
+                    "date": 1711372164280,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n def generate_maze(width, height):\n     symbols = ['#', '.', 'P', 'G', 'X']\n     maze = []\n     for _ in range(height):\n-        row = ''.join(random.choices(symbols) for )\n+        row = ''.join(random.choices(symbols) for _ in range(width))\n         maze.append(row)\n     return maze\n \n def print_maze(maze):\n"
+                },
+                {
+                    "date": 1711372214139,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n def generate_maze(width, height):\n     symbols = ['#', '.', 'P', 'G', 'X']\n     maze = []\n     for _ in range(height):\n-        row = ''.join(random.choices(symbols) for _ in range(width))\n+        row = ''.join(random.choice(symbols) for _ in range(width))\n         maze.append(row)\n     return maze\n \n def print_maze(maze):\n"
+                },
+                {
+                    "date": 1711372229916,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n def generate_maze(width, height):\n     symbols = ['#', '.', 'P', 'G', 'X']\n     maze = []\n     for _ in range(height):\n-        row = ''.join(random.choice(symbols) for _ in range(width))\n+        row = ''.join(random.choices(symbols, weights=[0.3, 0.4, 0.01, 0.05, 0.05], k=width))\n         maze.append(row)\n     return maze\n \n def print_maze(maze):\n"
+                }
+            ],
+            "date": 1711371911348,
+            "name": "Commit-0",
+            "content": "import random\n\ndef generate_maze(width, height):\n    symbols = ['#', '.', 'P', 'G', 'X']\n    maze = []\n    for _ in range(height):\n        row = ''.join(random.choices(symbols, weights=[0.5, 0.6, 0.05, 0.1, 0.05], k=width))\n        maze.append(row)\n    return maze\n\ndef print_maze(maze):\n    for row in maze:\n        print(row)\n\ndef main():\n    for _ in range(5):\n        width, height = 25, 10  # 设定迷宫的宽度和高度\n        maze = generate_maze(width, height)\n        print_maze(maze)\n        print()  # 每个迷宫之间空一行\n\nif __name__ == \"__main__\":\n    main()\n"
+        }
+    ]
+}
