@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 11,
+            "activePatchIndex": 16,
             "patches": [
                 {
                     "date": 1711371911348,
@@ -52,6 +52,26 @@
                 {
                     "date": 1711372229916,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n def generate_maze(width, height):\n     symbols = ['#', '.', 'P', 'G', 'X']\n     maze = []\n     for _ in range(height):\n-        row = ''.join(random.choice(symbols) for _ in range(width))\n+        row = ''.join(random.choices(symbols, weights=[0.3, 0.4, 0.01, 0.05, 0.05], k=width))\n         maze.append(row)\n     return maze\n \n def print_maze(maze):\n"
+                },
+                {
+                    "date": 1711454180928,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n         print(row)\n \n def main():\n     for _ in range(5):\n-        width, height = 25, 10  # 设定迷宫的宽度和高度\n+        width = \n         maze = generate_maze(width, height)\n         print_maze(maze)\n         print()  # 每个迷宫之间空一行\n \n"
+                },
+                {
+                    "date": 1711454186543,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n         print(row)\n \n def main():\n     for _ in range(5):\n-        width = \n+        width = input(\"\")\n         maze = generate_maze(width, height)\n         print_maze(maze)\n         print()  # 每个迷宫之间空一行\n \n"
+                },
+                {
+                    "date": 1711454192836,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,10 @@\n         print(row)\n \n def main():\n     for _ in range(5):\n-        width = input(\"\")\n+        width = input(\"Please input the width of the maze: \")\n+        height = input(\"Please input the height of the maze: \")\n         maze = generate_maze(width, height)\n         print_maze(maze)\n         print()  # 每个迷宫之间空一行\n \n"
+                },
+                {
+                    "date": 1711454203998,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,8 @@\n     for row in maze:\n         print(row)\n \n def main():\n-    for _ in range(5):\n         width = input(\"Please input the width of the maze: \")\n         height = input(\"Please input the height of the maze: \")\n         maze = generate_maze(width, height)\n         print_maze(maze)\n"
+                },
+                {
+                    "date": 1711454214083,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,12 +12,11 @@\n     for row in maze:\n         print(row)\n \n def main():\n-        width = input(\"Please input the width of the maze: \")\n-        height = input(\"Please input the height of the maze: \")\n-        maze = generate_maze(width, height)\n-        print_maze(maze)\n-        print()  # 每个迷宫之间空一行\n+    width = input(\"Please input the width of the maze: \")\n+    height = input(\"Please input the height of the maze: \")\n+    maze = generate_maze(width, height)\n+    print_maze(maze)\n \n if __name__ == \"__main__\":\n     main()\n"
                 }
             ],
             "date": 1711371911348,

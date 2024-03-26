@@ -2,7 +2,10 @@ package game
 
 import (
 	"bufio"
+	"fmt"
 	"os"
+
+	"github.com/danicat/simpleansi"
 )
 
 // load the maze file
@@ -12,7 +15,7 @@ var maze []string
 func (game *Game) loadMaze(file string) error {
 	f, err := os.Open(file)
 	if err != nil {
-		return err
+		return ErrNotFile
 	}
 	// defer puts f.Close() in the *call stack*
 	defer f.Close()
@@ -37,10 +40,9 @@ func (game *Game) Load(file string) error {
 }
 
 // ToString
-func (game *Game) ToString() string {
-	var result string
+func (game *Game) ToString() {
+	simpleansi.ClearScreen()
 	for _, line := range game.Maze {
-		result += line + "\n"
+		fmt.Println(line)
 	}
-	return result
 }

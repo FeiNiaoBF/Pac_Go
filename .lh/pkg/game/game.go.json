@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 7,
+            "activePatchIndex": 26,
             "patches": [
                 {
                     "date": 1711370522972,
@@ -36,6 +36,82 @@
                 {
                     "date": 1711371070288,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n package game\n \n type Game struct {\n-\tmaze []string\n+\tMaze []string\n }\n \n // NewGame\n func NewGame() *Game {\n"
+                },
+                {
+                    "date": 1711455174955,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,5 +8,14 @@\n func NewGame() *Game {\n \treturn &Game{}\n }\n \n+// Error messages\n+type GameError string\n \n+const (\n+\tErrNotFile = GameError(\"not a file\")\n+)\n+\n+func (e GameError) Error() string {\n+\treturn string(e)\n+}\n"
+                },
+                {
+                    "date": 1711455182838,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,10 +7,11 @@\n // NewGame\n func NewGame() *Game {\n \treturn &Game{}\n }\n-\n+// ===============\n // Error messages\n+// ===============\n type GameError string\n \n const (\n \tErrNotFile = GameError(\"not a file\")\n"
+                },
+                {
+                    "date": 1711455233217,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,15 +7,16 @@\n // NewGame\n func NewGame() *Game {\n \treturn &Game{}\n }\n+\n // ===============\n // Error messages\n // ===============\n type GameError string\n \n const (\n-\tErrNotFile = GameError(\"not a file\")\n+\tErrNotFile = GameError(\"could not a file\")\n )\n \n func (e GameError) Error() string {\n \treturn string(e)\n"
+                },
+                {
+                    "date": 1711455247971,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n // ===============\n type GameError string\n \n const (\n-\tErrNotFile = GameError(\"could not a file\")\n+\tErrNotFile = GameError(\"could find not a % file\")\n )\n \n func (e GameError) Error() string {\n \treturn string(e)\n"
+                },
+                {
+                    "date": 1711455254273,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n // ===============\n type GameError string\n \n const (\n-\tErrNotFile = GameError(\"could find not a % file\")\n+\tErrNotFile = GameError(\"could find not a file\")\n )\n \n func (e GameError) Error() string {\n \treturn string(e)\n"
+                },
+                {
+                    "date": 1711455261958,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,7 +17,7 @@\n const (\n \tErrNotFile = GameError(\"could find not a file\")\n )\n \n-func (e GameError) Error() string {\n+func (e GameError) Errorf() string {\n \treturn string(e)\n }\n"
+                },
+                {
+                    "date": 1711455880633,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,10 +14,10 @@\n // ===============\n type GameError string\n \n const (\n-\tErrNotFile = GameError(\"could find not a file\")\n+\tErrNotFile = \"could find not a file\"\n )\n \n-func (e GameError) Errorf() string {\n+func (e GameError) Error() string {\n \treturn string(e)\n }\n"
+                },
+                {
+                    "date": 1711455886979,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,10 +14,10 @@\n // ===============\n type GameError string\n \n const (\n-\tErrNotFile = \"could find not a file\"\n+\tErrNotFile = GameError(\"could find not a file\")\n )\n \n-func (e GameError) Error() string {\n+func (e *GameError) Error() string {\n \treturn string(e)\n }\n"
+                },
+                {
+                    "date": 1711455894604,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,6 +18,6 @@\n \tErrNotFile = GameError(\"could find not a file\")\n )\n \n func (e *GameError) Error() string {\n-\treturn string(e)\n+\treturn string(&e)\n }\n"
+                },
+                {
+                    "date": 1711455907399,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,6 +18,6 @@\n \tErrNotFile = GameError(\"could find not a file\")\n )\n \n func (e *GameError) Error() string {\n-\treturn string(&e)\n+\treturn string(e)\n }\n"
+                },
+                {
+                    "date": 1711455913242,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,10 +14,7 @@\n // ===============\n type GameError string\n \n const (\n-\tErrNotFile = GameError(\"could find not a file\")\n+\tErrNotFile = \"could find not a file\"\n )\n \n-func (e *GameError) Error() string {\n-\treturn string(e)\n-}\n"
+                },
+                {
+                    "date": 1711455954486,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,10 +11,7 @@\n \n // ===============\n // Error messages\n // ===============\n-type GameError string\n-\n const (\n \tErrNotFile = \"could find not a file\"\n )\n-\n"
+                },
+                {
+                    "date": 1711455960327,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,17 +1,14 @@\n package game\n \n+\n+\n+\n+\n type Game struct {\n \tMaze []string\n }\n \n // NewGame\n func NewGame() *Game {\n \treturn &Game{}\n }\n-\n-// ===============\n-// Error messages\n-// ===============\n-const (\n-\tErrNotFile = \"could find not a file\"\n-)\n"
+                },
+                {
+                    "date": 1711455966243,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,10 +1,13 @@\n package game\n \n+// ===============\n+// Error messages\n+// ===============\n+const (\n+\tErrNotFile = \"could find not a file\"\n+)\n \n-\n-\n-\n type Game struct {\n \tMaze []string\n }\n \n"
+                },
+                {
+                    "date": 1711456018052,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,12 +1,6 @@\n package game\n \n-// ===============\n-// Error messages\n-// ===============\n-const (\n-\tErrNotFile = \"could find not a file\"\n-)\n \n type Game struct {\n \tMaze []string\n }\n"
+                },
+                {
+                    "date": 1711456023622,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,4 +8,11 @@\n // NewGame\n func NewGame() *Game {\n \treturn &Game{}\n }\n+\n+// ===============\n+// Error messages\n+// ===============\n+var (\n+\tErrNotFile = \"could find not a file\"\n+)\n"
+                },
+                {
+                    "date": 1711456034476,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,6 @@\n package game\n \n-\n type Game struct {\n \tMaze []string\n }\n \n@@ -13,6 +12,6 @@\n // ===============\n // Error messages\n // ===============\n var (\n-\tErrNotFile = \"could find not a file\"\n+\tErrNotFile = error.New(\"could find not a file\")\n )\n"
+                },
+                {
+                    "date": 1711456040585,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,8 @@\n package game\n \n+import \"errors\"\n+\n type Game struct {\n \tMaze []string\n }\n \n@@ -12,6 +14,6 @@\n // ===============\n // Error messages\n // ===============\n var (\n-\tErrNotFile = error.New(\"could find not a file\")\n+\tErrNotFile = errors.New(\"could find not a file\")\n )\n"
+                },
+                {
+                    "date": 1711456079500,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,7 +13,7 @@\n \n // ===============\n // Error messages\n // ===============\n-var (\n+var\n \tErrNotFile = errors.New(\"could find not a file\")\n-)\n+\n"
                 }
             ],
             "date": 1711370522972,

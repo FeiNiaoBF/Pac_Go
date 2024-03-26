@@ -1,0 +1,62 @@
+{
+    "sourceFile": "pkg/game/read_input.go",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 11,
+            "patches": [
+                {
+                    "date": 1711458092166,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1711458100141,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,3 +1,3 @@\n package game\n \n-func \n+func readInput\n"
+                },
+                {
+                    "date": 1711458108438,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,3 +1,5 @@\n package game\n \n-func readInput\n+func readInput() (string, error) {\n+\t\n+}\n"
+                },
+                {
+                    "date": 1711458113815,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n package game\n \n func readInput() (string, error) {\n-\t\n+\tbuffer := make()\n }\n"
+                },
+                {
+                    "date": 1711458119796,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n package game\n \n func readInput() (string, error) {\n-\tbuffer := make()\n+\tbuffer := make([]byte)\n }\n"
+                },
+                {
+                    "date": 1711458126651,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n package game\n \n func readInput() (string, error) {\n-\tbuffer := make([]byte)\n+\tbuffer := make([]byte), 256\n }\n"
+                },
+                {
+                    "date": 1711458132895,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,7 @@\n package game\n \n func readInput() (string, error) {\n-\tbuffer := make([]byte), 256\n+\tbuffer := make([]byte, 256)\n+\n+\t\n }\n"
+                },
+                {
+                    "date": 1711458141294,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,6 +2,6 @@\n \n func readInput() (string, error) {\n \tbuffer := make([]byte, 256)\n \n-\t\n+\tcnt, err := \n }\n"
+                },
+                {
+                    "date": 1711458148163,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,9 @@\n package game\n \n+import \"os\"\n+\n func readInput() (string, error) {\n \tbuffer := make([]byte, 256)\n \n-\tcnt, err := \n+\tcnt, err := os.Stdin\n }\n"
+                },
+                {
+                    "date": 1711458153906,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,6 +4,7 @@\n \n func readInput() (string, error) {\n \tbuffer := make([]byte, 256)\n \n-\tcnt, err := os.Stdin\n+\tcnt, err := os.Stdin.Read(buffer)\n+\t\n }\n"
+                },
+                {
+                    "date": 1711458163945,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,7 +6,7 @@\n \tbuffer := make([]byte, 256)\n \n \tcnt, err := os.Stdin.Read(buffer)\n \tif err != nil {\n-\t\treturn\t\n+\t\treturn\te\n \t}\n }\n"
+                },
+                {
+                    "date": 1711458186247,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,6 +8,6 @@\n \tcnt, err := os.Stdin.Read(buffer)\n \tif err != nil {\n \t\treturn \"\", err\n \t}\n-\tif cnt == 1 \n+\tif cnt == 1 &\n }\n"
+                }
+            ],
+            "date": 1711458092166,
+            "name": "Commit-0",
+            "content": "package game\n\nfunc \n"
+        }
+    ]
+}

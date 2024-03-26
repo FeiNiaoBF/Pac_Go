@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 87,
+            "activePatchIndex": 88,
             "patches": [
                 {
                     "date": 1711368229048,
@@ -356,6 +356,10 @@
                 {
                     "date": 1711371132298,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -31,9 +31,9 @@\n \terr := game.loadMaze(file)\n \tif err != nil {\n \t\treturn err\n \t}\n-\tgame.\n+\tgame.Maze\n \treturn nil\n }\n \n // ToString\n"
+                },
+                {
+                    "date": 1711455077004,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n // load the maze file\n var maze []string\n \n // Error messages\n-type Defult\n+type DefultError string\n \n const (\n \tErrNotFile = \"not a file\"\n )\n"
                 }
             ],
             "date": 1711368229048,

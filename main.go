@@ -8,15 +8,16 @@ import (
 )
 
 const (
-	filePath = "data/maze/maze01.txt"
+	mazeFilePath = "data/maze/maze01.txt"
 )
 
 func main() {
 	game := game.NewGame()
 	// initialize game
-
+	game.InitialiseGame()
+	defer game.CleanupGame()
 	// load game resources
-	err := game.Load(filePath)
+	err := game.Load(mazeFilePath)
 	if err != nil {
 		log.Printf("Error loading maze file: \n%v", err)
 		return
@@ -24,9 +25,16 @@ func main() {
 	// game loop
 	for {
 		// update screen
-		fmt.Print(game.ToString())
+		game.ToString()
 		// process input
-
+		input, err := game.ReadInput()
+		if err != nil {
+			log.Printf("error reading input: %q", err)
+			break
+		}
+		if input == "ESC" {
+			break
+		}
 		// process movement
 
 		// process collisions

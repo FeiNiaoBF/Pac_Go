@@ -13,11 +13,10 @@ def print_maze(maze):
         print(row)
 
 def main():
-    for _ in range(5):
-        width, height = 25, 10  # 设定迷宫的宽度和高度
-        maze = generate_maze(width, height)
-        print_maze(maze)
-        print()  # 每个迷宫之间空一行
+    width = input("Please input the width of the maze: ")
+    height = input("Please input the height of the maze: ")
+    maze = generate_maze(width, height)
+    print_maze(maze)
 
 if __name__ == "__main__":
     main()
