@@ -1,0 +1,54 @@
+{
+    "sourceFile": "pkg/players/player.go",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 9,
+            "patches": [
+                {
+                    "date": 1711544201812,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1711544437875,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n-package palyers\n+package players\n \n import \"strings\"\n \n // Player struct\n"
+                },
+                {
+                    "date": 1711545904839,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,4 +29,6 @@\n \t\tp.sprite = sprite{row, col}\n \t\tbreak\n \t}\n }\n+\n+\n"
+                },
+                {
+                    "date": 1711545917045,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,5 +30,5 @@\n \t\tbreak\n \t}\n }\n \n-\n+func movePlayer(dir string)\n"
+                },
+                {
+                    "date": 1711545926520,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,5 +30,7 @@\n \t\tbreak\n \t}\n }\n \n-func movePlayer(dir string)\n+func (p Player) movePlayer(dir string) {\n+\t\n+}\n"
+                },
+                {
+                    "date": 1711545932764,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,7 +30,7 @@\n \t\tbreak\n \t}\n }\n \n-func (p Player) movePlayer(dir string) {\n-\t\n+func (p *Player) movePlayer(dir string) {\n+\tp.\n }\n"
+                },
+                {
+                    "date": 1711545940141,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -31,6 +31,6 @@\n \t}\n }\n \n func (p *Player) movePlayer(dir string) {\n-\tp.\n+\tp.sprite.row, p.\n }\n"
+                },
+                {
+                    "date": 1711545947638,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -31,6 +31,6 @@\n \t}\n }\n \n func (p *Player) movePlayer(dir string) {\n-\tp.sprite.row, p.\n+\tp.sprite.row, p\n }\n"
+                },
+                {
+                    "date": 1711545956506,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -31,6 +31,6 @@\n \t}\n }\n \n func (p *Player) movePlayer(dir string) {\n-\tp.sprite.row, p.sp\n+\tp.sprite.row, p.spr\n }\n"
+                },
+                {
+                    "date": 1711547337575,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -35,6 +35,6 @@\n \t}\n }\n \n func (p *Player) MovePlayer(g *game.Game, dir string) {\n-\tp.Sprite.Row, p.Sprite.Col = g.Move(p.Sprite.Row, p.Sprite.col, dir)\n+\tp.Sprite.Row, p.Sprite.Col = g.Move(p.Sprite.Row, p.Sprite.Col, dir)\n }\n"
+                }
+            ],
+            "date": 1711544201812,
+            "name": "Commit-0",
+            "content": "package palyers\n\nimport \"strings\"\n\n// Player struct\n// This is the player for the PacMan game\ntype Player struct {\n\tsprite sprite\n}\n\n// sprite struct\n// tracking the player's position\ntype sprite struct {\n\trow int\n\tcol int\n}\n\n// NewPlayer\n// Create a new player\nfunc NewPlayer() *Player {\n\treturn &Player{}\n}\n\nfunc (p *Player) FindPlayer(maze []string) {\n\t// find the player in the maze\n\tfor row, line := range maze {\n\t\t// Only one player\n\t\tcol := strings.Index(line, \"P\")\n\t\tp.sprite = sprite{row, col}\n\t\tbreak\n\t}\n}\n"
+        }
+    ]
+}

@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 26,
+            "activePatchIndex": 41,
             "patches": [
                 {
                     "date": 1711370522972,
@@ -112,6 +112,66 @@
                 {
                     "date": 1711456079500,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,7 +13,7 @@\n \n // ===============\n // Error messages\n // ===============\n-var (\n+var\n \tErrNotFile = errors.New(\"could find not a file\")\n-)\n+\n"
+                },
+                {
+                    "date": 1711545310307,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,12 @@\n package game\n \n-import \"errors\"\n+import (\n+\t\"errors\"\n+\t\"log\"\n+\t\"os\"\n+\t\"os/exec\"\n+)\n \n type Game struct {\n \tMaze []string\n }\n@@ -13,7 +18,29 @@\n \n // ===============\n // Error messages\n // ===============\n-var\n-\tErrNotFile = errors.New(\"could find not a file\")\n+var ErrNotFile = errors.New(\"could find not a file\")\n \n+\n+// initialize game\n+func (g *Game)InitialiseGame() {\n+\t// Check if the terminal supports cbreak mode\n+\tcbTerm := exec.Command(\"stty\", \"cbreak\", \"-echo\")\n+\tcbTerm.Stdin = os.Stdin\n+\n+\terr := cbTerm.Run()\n+\tif err != nil {\n+\t\tlog.Fatalln(\"unable to activate cbreak mode:\", err)\n+\t}\n+}\n+\n+// restore terminal to cooked mode\n+func (g *Game)CleanupGame() {\n+\tcookedTerm := exec.Command(\"stty\", \"-cbreak\", \"echo\")\n+\tcookedTerm.Stdin = os.Stdin\n+\n+\terr := cookedTerm.Run()\n+\tif err != nil {\n+\t\tlog.Fatalln(\"unable to restore cooked mode:\", err)\n+\t}\n+}\n"
+                },
+                {
+                    "date": 1711546242506,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,8 +8,9 @@\n )\n \n type Game struct {\n \tMaze []string\n+\t\n }\n \n // NewGame\n func NewGame() *Game {\n"
+                },
+                {
+                    "date": 1711546249218,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n )\n \n type Game struct {\n \tMaze []string\n-\t\n+\tplayer p\n }\n \n // NewGame\n func NewGame() *Game {\n"
+                },
+                {
+                    "date": 1711546254572,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,13 +4,15 @@\n \t\"errors\"\n \t\"log\"\n \t\"os\"\n \t\"os/exec\"\n+\n+\t\"github.com/FeiNiaoBF/Pac_Go/pkg/players\"\n )\n \n type Game struct {\n \tMaze []string\n-\tplayer p\n+\tplayer players.Player\n }\n \n // NewGame\n func NewGame() *Game {\n"
+                },
+                {
+                    "date": 1711546267606,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n \t\"github.com/FeiNiaoBF/Pac_Go/pkg/players\"\n )\n \n type Game struct {\n-\tMaze []string\n+\tMaze   []string\n \tplayer players.Player\n }\n \n // NewGame\n@@ -23,11 +23,10 @@\n // Error messages\n // ===============\n var ErrNotFile = errors.New(\"could find not a file\")\n \n-\n // initialize game\n-func (g *Game)InitialiseGame() {\n+func (g *Game) InitialiseGame() {\n \t// Check if the terminal supports cbreak mode\n \tcbTerm := exec.Command(\"stty\", \"cbreak\", \"-echo\")\n \tcbTerm.Stdin = os.Stdin\n \n@@ -37,13 +36,15 @@\n \t}\n }\n \n // restore terminal to cooked mode\n-func (g *Game)CleanupGame() {\n+func (g *Game) CleanupGame() {\n \tcookedTerm := exec.Command(\"stty\", \"-cbreak\", \"echo\")\n \tcookedTerm.Stdin = os.Stdin\n \n \terr := cookedTerm.Run()\n \tif err != nil {\n \t\tlog.Fatalln(\"unable to restore cooked mode:\", err)\n \t}\n }\n+\n+\n"
+                },
+                {
+                    "date": 1711546273644,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -46,5 +46,5 @@\n \t\tlog.Fatalln(\"unable to restore cooked mode:\", err)\n \t}\n }\n \n-\n+func Addp\n"
+                },
+                {
+                    "date": 1711546279422,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -46,5 +46,7 @@\n \t\tlog.Fatalln(\"unable to restore cooked mode:\", err)\n \t}\n }\n \n-func Addp\n+func Addplayer() {\n+\t\n+}\n"
+                },
+                {
+                    "date": 1711546287040,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -46,7 +46,7 @@\n \t\tlog.Fatalln(\"unable to restore cooked mode:\", err)\n \t}\n }\n \n-func Addplayer() {\n-\t\n+func (g *Game() {\n+\n }\n"
+                },
+                {
+                    "date": 1711546294103,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -46,7 +46,7 @@\n \t\tlog.Fatalln(\"unable to restore cooked mode:\", err)\n \t}\n }\n \n-func (g *Game() {\n-\n+func (g *Game) Addplayer() {\n+\t\n }\n"
+                },
+                {
+                    "date": 1711546303215,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -46,7 +46,7 @@\n \t\tlog.Fatalln(\"unable to restore cooked mode:\", err)\n \t}\n }\n \n-func (g *Game) Addplayer() {\n-\t\n+func (g *Game) AddPlayer() {\n+\n }\n"
+                },
+                {
+                    "date": 1711546328762,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -46,7 +46,7 @@\n \t\tlog.Fatalln(\"unable to restore cooked mode:\", err)\n \t}\n }\n \n-func (g *Game) AddPlayer() {\n+func (g *Game) AddPlayer(p p) {\n \n }\n"
+                },
+                {
+                    "date": 1711546334731,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -46,7 +46,7 @@\n \t\tlog.Fatalln(\"unable to restore cooked mode:\", err)\n \t}\n }\n \n-func (g *Game) AddPlayer(p p) {\n-\n+func (g *Game) AddPlayer(p players.Player) {\n+\t\n }\n"
+                },
+                {
+                    "date": 1711546345401,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -47,6 +47,6 @@\n \t}\n }\n \n func (g *Game) AddPlayer(p players.Player) {\n-\t\n+\tg.player = p\n }\n"
+                },
+                {
+                    "date": 1711546391445,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n \t\"log\"\n \t\"os\"\n \t\"os/exec\"\n \n-\t\"github.com/FeiNiaoBF/Pac_Go/pkg/players\"\n+\t\n )\n \n type Game struct {\n \tMaze   []string\n"
+                },
+                {
+                    "date": 1711546429120,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,14 +5,13 @@\n \t\"log\"\n \t\"os\"\n \t\"os/exec\"\n \n-\t\n+\n )\n \n type Game struct {\n \tMaze   []string\n-\tplayer players.Player\n }\n \n // NewGame\n func NewGame() *Game {\n"
                 }
             ],
             "date": 1711370522972,

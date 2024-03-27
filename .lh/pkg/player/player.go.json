@@ -1,0 +1,26 @@
+{
+    "sourceFile": "pkg/player/player.go",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1711544127866,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1711544175125,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n-package palyer\n+package paly\n \n import \"strings\"\n \n // Player struct\n"
+                },
+                {
+                    "date": 1711544195540,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n-package paly\n+package palyers\n \n import \"strings\"\n \n // Player struct\n"
+                }
+            ],
+            "date": 1711544127866,
+            "name": "Commit-0",
+            "content": "package palyer\n\nimport \"strings\"\n\n// Player struct\n// This is the player for the PacMan game\ntype Player struct {\n\tsprite sprite\n}\n\n// sprite struct\n// tracking the player's position\ntype sprite struct {\n\trow int\n\tcol int\n}\n\n// NewPlayer\n// Create a new player\nfunc NewPlayer() *Player {\n\treturn &Player{}\n}\n\nfunc (p *Player) FindPlayer(maze []string) {\n\t// find the player in the maze\n\tfor row, line := range maze {\n\t\t// Only one player\n\t\tcol := strings.Index(line, \"P\")\n\t\tp.sprite = sprite{row, col}\n\t\tbreak\n\t}\n}\n"
+        }
+    ]
+}

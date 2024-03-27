@@ -1,0 +1,38 @@
+{
+    "sourceFile": "pkg/player/play.go",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 5,
+            "patches": [
+                {
+                    "date": 1711544032269,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1711544037596,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n-package palyer\n+package pla\n \n import \"strings\"\n \n // Palyer struct\n"
+                },
+                {
+                    "date": 1711544056860,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,5 @@\n-package pla\n-\n+pa\n import \"strings\"\n \n // Palyer struct\n // This is the player for the PacMan game\n"
+                },
+                {
+                    "date": 1711544075611,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,6 @@\n-pa\n+package palyer\n+\n import \"strings\"\n \n // Palyer struct\n // This is the player for the PacMan game\n"
+                },
+                {
+                    "date": 1711544084099,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n package palyer\n \n import \"strings\"\n \n-// Palyer struct\n+// Player struct\n // This is the player for the PacMan game\n type Player struct {\n \tsprite sprite\n }\n@@ -14,9 +14,9 @@\n \trow int\n \tcol int\n }\n \n-// NewPalyer\n+// NewPlayer\n // Create a new player\n func NewPlayer() *Player {\n \treturn &Player{}\n }\n"
+                },
+                {
+                    "date": 1711544108197,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,32 +0,0 @@\n-package palyer\n-\n-import \"strings\"\n-\n-// Player struct\n-// This is the player for the PacMan game\n-type Player struct {\n-\tsprite sprite\n-}\n-\n-// sprite struct\n-// tracking the player's position\n-type sprite struct {\n-\trow int\n-\tcol int\n-}\n-\n-// NewPlayer\n-// Create a new player\n-func NewPlayer() *Player {\n-\treturn &Player{}\n-}\n-\n-func (p *Player) FindPlayer(maze []string) {\n-\t// find the player in the maze\n-\tfor row, line := range maze {\n-\t\t// Only one player\n-\t\tcol := strings.Index(line, \"P\")\n-\t\tp.sprite = sprite{row, col}\n-\t\tbreak\n-\t}\n-}\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1711544032269,
+            "name": "Commit-0",
+            "content": "package palyer\n\nimport \"strings\"\n\n// Palyer struct\n// This is the player for the PacMan game\ntype Player struct {\n\tsprite sprite\n}\n\n// sprite struct\n// tracking the player's position\ntype sprite struct {\n\trow int\n\tcol int\n}\n\n// NewPalyer\n// Create a new player\nfunc NewPlayer() *Player {\n\treturn &Player{}\n}\n\nfunc (p *Player) FindPlayer(maze []string) {\n\t// find the player in the maze\n\tfor row, line := range maze {\n\t\t// Only one player\n\t\tcol := strings.Index(line, \"P\")\n\t\tp.sprite = sprite{row, col}\n\t\tbreak\n\t}\n}\n"
+        }
+    ]
+}

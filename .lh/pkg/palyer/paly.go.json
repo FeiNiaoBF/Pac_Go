@@ -1,0 +1,118 @@
+{
+    "sourceFile": "pkg/palyer/paly.go",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 25,
+            "patches": [
+                {
+                    "date": 1711543231915,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1711543237526,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,2 +1,3 @@\n package palyer\n \n+// \n"
+                },
+                {
+                    "date": 1711543247104,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,3 +1,5 @@\n package palyer\n \n-// \n+//\n+\n+\n"
+                },
+                {
+                    "date": 1711543255755,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,7 @@\n package palyer\n \n //\n \n-\n+type palyer struct {\n+\t\n+}\n"
+                },
+                {
+                    "date": 1711543264504,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,6 +2,8 @@\n \n //\n \n type palyer struct {\n-\t\n+\n }\n+\n+type \n"
+                },
+                {
+                    "date": 1711543270777,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,5 +5,7 @@\n type palyer struct {\n \n }\n \n-type \n+type sprite struct {\n+\t\n+}\n"
+                },
+                {
+                    "date": 1711543278524,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,11 +1,10 @@\n package palyer\n \n //\n \n-type palyer struct {\n+type palyer struct{}\n \n-}\n-\n type sprite struct {\n-\t\n+\trow int\n+\tcol int\n }\n"
+                },
+                {
+                    "date": 1711543284112,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,11 @@\n package palyer\n \n //\n \n-type palyer struct{}\n+type palyer struct{\n+\tsprite \n+}\n \n type sprite struct {\n \trow int\n \tcol int\n"
+                },
+                {
+                    "date": 1711543290838,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,10 +1,10 @@\n package palyer\n \n //\n \n-type palyer struct{\n-\tsprite \n+type Palyer struct {\n+\tsprite sprite\n }\n \n type sprite struct {\n \trow int\n"
+                },
+                {
+                    "date": 1711543309608,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,7 @@\n package palyer\n \n-//\n-\n+// \n type Palyer struct {\n \tsprite sprite\n }\n \n"
+                },
+                {
+                    "date": 1711543317049,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,8 @@\n package palyer\n \n-// \n+// Palyer struct\n+// This is \n type Palyer struct {\n \tsprite sprite\n }\n \n"
+                },
+                {
+                    "date": 1711543322712,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n package palyer\n \n // Palyer struct\n-// This is \n+// This is the player \n type Palyer struct {\n \tsprite sprite\n }\n \n"
+                },
+                {
+                    "date": 1711543331466,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n package palyer\n \n // Palyer struct\n-// This is the player \n+// This is the player for the Pacman game\n type Palyer struct {\n \tsprite sprite\n }\n \n"
+                },
+                {
+                    "date": 1711543337166,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,12 +1,13 @@\n package palyer\n \n // Palyer struct\n-// This is the player for the Pacman game\n+// This is the player for the PacMan game\n type Palyer struct {\n \tsprite sprite\n }\n \n+// \n type sprite struct {\n \trow int\n \tcol int\n }\n"
+                },
+                {
+                    "date": 1711543364348,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,10 @@\n type Palyer struct {\n \tsprite sprite\n }\n \n-// \n+// sprite struct\n+// tracking \n type sprite struct {\n \trow int\n \tcol int\n }\n"
+                },
+                {
+                    "date": 1711543383470,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,13 @@\n+package palyer\n+\n+// Palyer struct\n+// This is the player for the PacMan game\n+type Palyer struct {\n+}\n+\n+// sprite struct\n+// tracking the player's position\n+type sprite struct {\n+\trow int\n+\tcol int\n+}\n"
+                },
+                {
+                    "date": 1711543388938,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,26 +2,13 @@\n \n // Palyer struct\n // This is the player for the PacMan game\n type Palyer struct {\n+\t\n }\n \n // sprite struct\n // tracking the player's position\n type sprite struct {\n \trow int\n \tcol int\n }\n-package palyer\n-\n-// Palyer struct\n-// This is the player for the PacMan game\n-type Palyer struct {\n-\tsprite sprite\n-}\n-\n-// sprite struct\n-// tracking \n-type sprite struct {\n-\trow int\n-\tcol int\n-}\n"
+                },
+                {
+                    "date": 1711543395019,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,10 @@\n \n // Palyer struct\n // This is the player for the PacMan game\n type Palyer struct {\n-\t\n+\t// sprite\n+\tsprite sprite\n }\n \n // sprite struct\n // tracking the player's position\n"
+                },
+                {
+                    "date": 1711543456020,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,8 @@\n \n // Palyer struct\n // This is the player for the PacMan game\n type Palyer struct {\n-\t// sprite\n \tsprite sprite\n }\n \n // sprite struct\n@@ -12,4 +11,5 @@\n type sprite struct {\n \trow int\n \tcol int\n }\n+\n"
+                },
+                {
+                    "date": 1711543463015,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,4 +12,6 @@\n \trow int\n \tcol int\n }\n \n+// NewPalyer\n+// Create a new player\n"
+                },
+                {
+                    "date": 1711543473983,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,4 +14,9 @@\n }\n \n // NewPalyer\n // Create a new player\n+func NewPalyer() *Palyer {\n+\treturn &Palyer{}\n+}\n+\n+func \n"
+                },
+                {
+                    "date": 1711543480963,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,5 +18,8 @@\n func NewPalyer() *Palyer {\n \treturn &Palyer{}\n }\n \n-func \n+func FindPlayer() {\n+\t// find the player in the maze\n+\t\n+}\n"
+                },
+                {
+                    "date": 1711543489763,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,6 +20,14 @@\n }\n \n func FindPlayer() {\n \t// find the player in the maze\n-\t\n+\tfor row, line := range maze {\n+\t\tfor col, char := range line {\n+\t\t\tif char == 'P' {\n+\t\t\t\tplayer.sprite.row = row\n+\t\t\t\tplayer.sprite.col = col\n+\t\t\t\treturn\n+\t\t\t}\n+\t\t}\n+\t}\n }\n"
+                },
+                {
+                    "date": 1711543497165,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n }\n \n // NewPalyer\n // Create a new player\n-func NewPalyer() *Palyer {\n+func ()NewPalyer() *Palyer {\n \treturn &Palyer{}\n }\n \n func FindPlayer() {\n"
+                },
+                {
+                    "date": 1711543503733,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n func NewPalyer() *Palyer {\n \treturn &Palyer{}\n }\n \n-func ()FindPlayer() {\n+func (p )FindPlayer() {\n \t// find the player in the maze\n \tfor row, line := range maze {\n \t\tfor col, char := range line {\n \t\t\tif char == 'P' {\n"
+                },
+                {
+                    "date": 1711543601381,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,6 +20,6 @@\n }\n \n func (p *Palyer) FindPlayer(maze []string) {\n \t// find the player in the maze\n-\tfor row, line := range \n+\tfor row, line := range m\n }\n"
+                }
+            ],
+            "date": 1711543231915,
+            "name": "Commit-0",
+            "content": "package palyer\n\n"
+        }
+    ]
+}
