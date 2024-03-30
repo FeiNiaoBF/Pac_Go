@@ -4,8 +4,10 @@ import (
 	"bufio"
 	"fmt"
 	"log"
+	"math/rand"
 	"os"
 	"os/exec"
+	"time"
 
 	"github.com/danicat/simpleansi"
 )
@@ -16,9 +18,14 @@ type sprite struct {
 }
 
 var (
-	player sprite
-	maze   []string
+	maze    []string
+	player  sprite
+	ghosts  []*sprite
+	score   int
+	numDots int
 )
+
+var lives = 1
 
 // File Path
 const mazeFile = "data/maze/maze01.txt"
@@ -41,6 +48,11 @@ func loadMaze(file string) error {
 			switch char {
 			case 'P':
 				player = sprite{row, col}
+			case 'G':
+				g := &sprite{row, col}
+				ghosts = append(ghosts, g)
+			case '.':
+				numDots++
 			}
 		}
 	}
@@ -54,6 +66,8 @@ func printScreen() {
 		for _, chr := range line {
 			switch chr {
 			case '#':
+				fallthrough
+			case '.':
 				fmt.Printf("%c", chr)
 			default:
 				fmt.Print(" ")
@@ -61,11 +75,18 @@ func printScreen() {
 		}
 		fmt.Println()
 	}
+
 	simpleansi.MoveCursor(player.row, player.col)
 	fmt.Print("P")
 
-	// Move cursor outside of maze drawing area
+	for _, g := range ghosts {
+		simpleansi.MoveCursor(g.row, g.col)
+		fmt.Print("G")
+	}
+
 	simpleansi.MoveCursor(len(maze)+1, 0)
+	fmt.Println("Dots:", numDots, "\tGhosts:", len(ghosts))
+	fmt.Println("Score:", score, "\tLives:", lives)
 }
 
 func readInput() (string, error) {
@@ -132,6 +153,19 @@ func makeMove(oldRow, oldCol int, dir string) (newRow, newCol int) {
 
 func movePlayer(dir string) {
 	player.row, player.col = makeMove(player.row, player.col, dir)
+	switch maze[player.row][player.col] {
+	case '.':
+		numDots--
+		score++
+		maze[player.row] = maze[player.row][:player.col] + " " + maze[player.row][player.col+1:]
+	}
+}
+
+func moveGhosts() {
+	for _, g := range ghosts {
+		dir := drawDirection()
+		g.row, g.col = makeMove(g.row, g.col, dir)
+	}
 }
 
 func initialise() {
@@ -154,6 +188,17 @@ func cleanup() {
 	}
 }
 
+func drawDirection() string {
+	dir := rand.Intn(4)
+	move := map[int]string{
+		0: "UP",
+		1: "DOWN",
+		2: "RIGHT",
+		3: "LEFT",
+	}
+	return move[dir]
+}
+
 func main() {
 	// initialise game
 	initialise()
@@ -165,29 +210,45 @@ func main() {
 		log.Println("failed to load maze:", err)
 		return
 	}
-
+	// process input
+	input := make(chan string, 256)
+	go func(ch chan<- string) {
+		for {
+			str, err := readInput()
+			if err != nil {
+				log.Println("failed to read input:", err)
+				ch <- "ESC"
+			}
+			ch <- str
+		}
+	}(input)
 	// game loop
 	for {
 		// update screen
 		printScreen()
-
-		// process input
-		input, err := readInput()
-		if err != nil {
-			log.Println("error reading input:", err)
-			break
-		}
-
 		// process movement
-		movePlayer(input)
-
+		select {
+		case inp := <-input:
+			if inp == "ESC" {
+				lives = 0
+			}
+			movePlayer(inp)
+		default:
+		}
+		moveGhosts()
+		time.Sleep(200 * time.Millisecond)
 		// process collisions
-
+		for _, g := range ghosts {
+			if player == *g {
+				lives--
+			}
+		}
 		// check game over
-		if input == "ESC" {
+		if numDots == 0 || lives <= 0 {
 			break
 		}
 
 		// repeat
+		time.Sleep(100 * time.Millisecond)
 	}
 }
