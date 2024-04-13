@@ -1,0 +1,18 @@
+{
+    "sourceFile": "config_noemoji.json",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1712976044609,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1712976044609,
+            "name": "Commit-0",
+            "content": "{\n    \"player\": \"P\",\n    \"ghost\": \"G\",\n    \"wall\": \"#\",\n    \"dot\": \".\",\n    \"pill\": \"X\",\n    \"space\": \" \",\n    \"use_emoji\": false\n}\n"
+        }
+    ]
+}
