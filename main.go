@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"encoding/json"
 	"fmt"
 	"log"
 	"math/rand"
@@ -12,6 +13,37 @@ import (
 	"github.com/danicat/simpleansi"
 )
 
+// Config
+type Config struct {
+	Player   string `json:"player"`
+	Ghost    string `json:"ghost"`
+	Wall     string `json:"wall"`
+	Dot      string `json:"dot"`
+	Pill     string `json:"pill"`
+	Death    string `json:"death"`
+	Space    string `json:"space"`
+	UseEmoji bool   `json:"use_emoji"`
+}
+
+var cfg Config
+
+func loadConfig(file string) error {
+	f, err := os.Open(file)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+
+	decoder := json.NewDecoder(f)
+	err = decoder.Decode(&cfg)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// Sprite is a struct that represents a sprite in the game
 type sprite struct {
 	row int
 	col int
@@ -60,35 +92,6 @@ func loadMaze(file string) error {
 	return nil
 }
 
-func printScreen() {
-	simpleansi.ClearScreen()
-	for _, line := range maze {
-		for _, chr := range line {
-			switch chr {
-			case '#':
-				fallthrough
-			case '.':
-				fmt.Printf("%c", chr)
-			default:
-				fmt.Print(" ")
-			}
-		}
-		fmt.Println()
-	}
-
-	simpleansi.MoveCursor(player.row, player.col)
-	fmt.Print("P")
-
-	for _, g := range ghosts {
-		simpleansi.MoveCursor(g.row, g.col)
-		fmt.Print("G")
-	}
-
-	simpleansi.MoveCursor(len(maze)+1, 0)
-	fmt.Println("Dots:", numDots, "\tGhosts:", len(ghosts))
-	fmt.Println("Score:", score, "\tLives:", lives)
-}
-
 func readInput() (string, error) {
 	buffer := make([]byte, 100)
 
@@ -115,6 +118,35 @@ func readInput() (string, error) {
 	}
 
 	return "", nil
+}
+
+func printScreen() {
+	simpleansi.ClearScreen()
+	for _, line := range maze {
+		for _, chr := range line {
+			switch chr {
+			case '#':
+				fmt.Print(simpleansi.WithBlueBackground(cfg.Wall))
+			case '.':
+				fmt.Print(cfg.Dot)
+			default:
+				fmt.Print(cfg.Space)
+			}
+		}
+		fmt.Println()
+	}
+
+	moveCursor(player.row, player.col)
+	fmt.Print(cfg.Player)
+
+	for _, g := range ghosts {
+		moveCursor(g.row, g.col)
+		fmt.Print(cfg.Ghost)
+	}
+
+	moveCursor(len(maze)+1, 0)
+	fmt.Printf("%vDots: %v\t %vGhosts: %v", cfg.Dot, numDots, cfg.Ghost, len(ghosts))
+	fmt.Println("Score:", score, "\tLives:", lives)
 }
 
 func makeMove(oldRow, oldCol int, dir string) (newRow, newCol int) {
@@ -153,11 +185,19 @@ func makeMove(oldRow, oldCol int, dir string) (newRow, newCol int) {
 
 func movePlayer(dir string) {
 	player.row, player.col = makeMove(player.row, player.col, dir)
+
+	removeDot := func(row, col int) {
+		maze[row] = maze[row][0:col] + " " + maze[row][col+1:]
+	}
+
 	switch maze[player.row][player.col] {
 	case '.':
 		numDots--
 		score++
-		maze[player.row] = maze[player.row][:player.col] + " " + maze[player.row][player.col+1:]
+		removeDot(player.row, player.col)
+	case 'X':
+		score += 10
+		removeDot(player.row, player.col)
 	}
 }
 
@@ -199,6 +239,14 @@ func drawDirection() string {
 	return move[dir]
 }
 
+func moveCursor(row, col int) {
+	if cfg.UseEmoji {
+		simpleansi.MoveCursor(row, col*2)
+	} else {
+		simpleansi.MoveCursor(row, col)
+	}
+}
+
 func main() {
 	// initialise game
 	initialise()
@@ -208,6 +256,12 @@ func main() {
 	err := loadMaze(mazeFile)
 	if err != nil {
 		log.Println("failed to load maze:", err)
+		return
+	}
+	// load config
+	err = loadConfig("config.json")
+	if err != nil {
+		log.Println("failed to load config:", err)
 		return
 	}
 	// process input
@@ -244,7 +298,12 @@ func main() {
 			}
 		}
 		// check game over
-		if numDots == 0 || lives <= 0 {
+		if numDots == 0 || lives == 0 {
+			if lives == 0 {
+				moveCursor(player.row, player.col)
+				fmt.Print(cfg.Death)
+				moveCursor(len(maze)+2, 0)
+			}
 			break
 		}
 
