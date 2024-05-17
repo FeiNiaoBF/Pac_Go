@@ -2,7 +2,6 @@ package main
 
 import (
 	"bufio"
-	"bytes"
 	"encoding/json"
 	"flag"
 	"fmt"
@@ -10,7 +9,6 @@ import (
 	"math/rand"
 	"os"
 	"os/exec"
-	"strconv"
 	"time"
 
 	"github.com/danicat/simpleansi"
@@ -62,7 +60,7 @@ var (
 	numDots int
 )
 
-var lives = 1
+var lives = 3
 
 // File Path
 var fileMaze = "data/maze/maze01.txt"
@@ -131,14 +129,6 @@ func readInput() (string, error) {
 	return "", nil
 }
 
-func getLivesAsEmoji() string {
-	buf := bytes.Buffer{}
-	for i := lives; i > 0; i-- {
-		buf.WriteString(cfg.Player)
-	}
-	return buf.String()
-}
-
 func printScreen() {
 	simpleansi.ClearScreen()
 	for _, line := range maze {
@@ -162,14 +152,10 @@ func printScreen() {
 		moveCursor(g.row, g.col)
 		fmt.Print(cfg.Ghost)
 	}
-	moveCursor(len(maze)+1, 0)
 
-	livesRemaining := strconv.Itoa(lives)
-	if cfg.UseEmoji {
-		livesRemaining = getLivesAsEmoji()
-	}
+	moveCursor(len(maze)+1, 0)
 	fmt.Printf("%vDots: %v\t %vGhosts: %v\r\n", cfg.Dot, numDots, cfg.Ghost, len(ghosts))
-	fmt.Println("Score:", score, "\tLives:", livesRemaining)
+	fmt.Println("Score:", score, "\tLives:", lives)
 }
 
 func makeMove(oldRow, oldCol int, dir string) (newRow, newCol int) {
@@ -317,16 +303,8 @@ func main() {
 		time.Sleep(200 * time.Millisecond)
 		// process collisions
 		for _, g := range ghosts {
-			if player.row == g.row && player.col == g.col {
-				lives -= lives
-				if lives != 0 {
-					moveCursor(player.row, player.row)
-					fmt.Print(cfg.Death)
-					moveCursor(len(maze)+2, 0)
-					// resetting player address
-					time.Sleep(1 * time.Second)
-					player.row, player.col = player.startRow, player.startCol
-				}
+			if player == *g {
+				lives--
 			}
 		}
 		// check game over
