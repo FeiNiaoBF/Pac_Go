@@ -11,6 +11,7 @@ import (
 	"os"
 	"os/exec"
 	"strconv"
+	"sync"
 	"time"
 
 	"github.com/danicat/simpleansi"
@@ -18,14 +19,16 @@ import (
 
 // Config
 type Config struct {
-	Player   string `json:"player"`
-	Ghost    string `json:"ghost"`
-	Wall     string `json:"wall"`
-	Dot      string `json:"dot"`
-	Pill     string `json:"pill"`
-	Death    string `json:"death"`
-	Space    string `json:"space"`
-	UseEmoji bool   `json:"use_emoji"`
+	Player       string        `json:"player,omitempty"`
+	Ghost        string        `json:"ghost,omitempty"`
+	Wall         string        `json:"wall,omitempty"`
+	Dot          string        `json:"dot,omitempty"`
+	Pill         string        `json:"pill,omitempty"`
+	Death        string        `json:"death,omitempty"`
+	Space        string        `json:"space,omitempty"`
+	GhostBlue    string        `json:"ghost_blue,omitempty"`
+	PillDuration time.Duration `json:"pill_duration,omitempty"`
+	UseEmoji     bool          `json:"use_emoji,omitempty"`
 }
 
 var cfg Config
@@ -57,10 +60,22 @@ type sprite struct {
 var (
 	maze    []string
 	player  sprite
-	ghosts  []*sprite
+	ghosts  []*ghost
 	score   int
 	numDots int
 )
+
+type GhostStatus string
+
+const (
+	GhostStatusNormal GhostStatus = "Normal"
+	GhostStatusBlue   GhostStatus = "Blue"
+)
+
+type ghost struct {
+	position sprite
+	status   GhostStatus
+}
 
 var lives = 1
 
@@ -92,8 +107,7 @@ func loadMaze(file string) error {
 			case 'P':
 				player = sprite{row, col, row, col}
 			case 'G':
-				g := &sprite{row, col, row, col}
-				ghosts = append(ghosts, g)
+				ghosts = append(ghosts, &ghost{sprite{row, col, row, col}, GhostStatusNormal})
 			case '.':
 				numDots++
 			}
@@ -159,8 +173,12 @@ func printScreen() {
 	fmt.Print(cfg.Player)
 
 	for _, g := range ghosts {
-		moveCursor(g.row, g.col)
-		fmt.Print(cfg.Ghost)
+		moveCursor(g.position.row, g.position.col)
+		if g.status == GhostStatusNormal {
+			fmt.Printf(cfg.Ghost)
+		} else if g.status == GhostStatusBlue {
+			fmt.Printf(cfg.GhostBlue)
+		}
 	}
 	moveCursor(len(maze)+1, 0)
 
@@ -221,13 +239,45 @@ func movePlayer(dir string) {
 	case 'X':
 		score += 10
 		removeDot(player.row, player.col)
+		go processPill()
 	}
+}
+
+var (
+	ghostsStatusMx sync.RWMutex
+	pillMx         sync.Mutex
+	pillTimer      *time.Timer
+)
+
+func updateGhosts(ghosts []*ghost, ghostStatus GhostStatus) {
+	ghostsStatusMx.Lock()
+	defer ghostsStatusMx.Unlock()
+	for _, g := range ghosts {
+		g.status = ghostStatus
+	}
+}
+
+func processPill() {
+	pillMx.Lock()
+	updateGhosts(ghosts, GhostStatusBlue)
+	for _, g := range ghosts {
+		g.status = GhostStatusBlue
+	}
+	pillTimer = time.NewTimer(time.Second * cfg.PillDuration)
+	pillMx.Unlock()
+	<-pillTimer.C
+	pillMx.Lock()
+	for _, g := range ghosts {
+		g.status = GhostStatusNormal
+	}
+	updateGhosts(ghosts, GhostStatusNormal)
+	pillMx.Unlock()
 }
 
 func moveGhosts() {
 	for _, g := range ghosts {
 		dir := drawDirection()
-		g.row, g.col = makeMove(g.row, g.col, dir)
+		g.position.row, g.position.col = makeMove(g.position.row, g.position.col, dir)
 	}
 }
 
@@ -317,18 +367,28 @@ func main() {
 		time.Sleep(200 * time.Millisecond)
 		// process collisions
 		for _, g := range ghosts {
-			if player.row == g.row && player.col == g.col {
-				lives -= lives
-				if lives != 0 {
-					moveCursor(player.row, player.row)
-					fmt.Print(cfg.Death)
-					moveCursor(len(maze)+2, 0)
-					// resetting player address
-					time.Sleep(1 * time.Second)
-					player.row, player.col = player.startRow, player.startCol
+			if player.row == g.position.row && player.col == g.position.col {
+				ghostsStatusMx.RLock()
+				if g.status == GhostStatusNormal {
+					lives -= 1
+					if lives != 0 {
+						moveCursor(player.row, player.row)
+						fmt.Print(cfg.Death)
+						moveCursor(len(maze)+2, 0)
+						ghostsStatusMx.RUnlock()
+						updateGhosts(ghosts, GhostStatusNormal)
+						// resetting player address
+						time.Sleep(1 * time.Second)
+						player.row, player.col = player.startRow, player.startCol
+					}
+				} else if g.status == GhostStatusBlue {
+					ghostsStatusMx.RUnlock()
+					updateGhosts([]*ghost{g}, GhostStatusNormal)
+					g.position.row, g.position.col = g.position.startRow, g.position.startCol
 				}
 			}
 		}
+		printScreen()
 		// check game over
 		if numDots == 0 || lives == 0 {
 			if lives == 0 {
