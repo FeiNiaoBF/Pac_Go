@@ -3,8 +3,6 @@ package test_test
 import (
 	"reflect"
 	"testing"
-
-	"github.com/FeiNiaoBF/Pac_Go/pkg/game"
 )
 
 var test1String = []string{

@@ -73,20 +73,11 @@ const (
 )
 
 type ghost struct {
-	position sprite
 	status   GhostStatus
+	position sprite
 }
 
-var lives = 1
-
-// File Path
-var fileMaze = "data/maze/maze01.txt"
-
-// config flag
-var (
-	configFile = flag.String("config-file", "config.json", "path to custom configuration file")
-	mazeFile   = flag.String("maze-file", fileMaze, "path to a custom maze file")
-)
+var lives = 3
 
 func loadMaze(file string) error {
 	f, err := os.Open(file)
@@ -107,7 +98,7 @@ func loadMaze(file string) error {
 			case 'P':
 				player = sprite{row, col, row, col}
 			case 'G':
-				ghosts = append(ghosts, &ghost{sprite{row, col, row, col}, GhostStatusNormal})
+				ghosts = append(ghosts, &ghost{status: GhostStatusNormal, position: sprite{row, col, row, col}})
 			case '.':
 				numDots++
 			}
@@ -162,6 +153,8 @@ func printScreen() {
 				fmt.Print(simpleansi.WithBlueBackground(cfg.Wall))
 			case '.':
 				fmt.Print(cfg.Dot)
+			case 'X':
+				fmt.Print(cfg.Pill)
 			default:
 				fmt.Print(cfg.Space)
 			}
@@ -172,6 +165,7 @@ func printScreen() {
 	moveCursor(player.row, player.col)
 	fmt.Print(cfg.Player)
 
+	ghostsStatusMx.RLock()
 	for _, g := range ghosts {
 		moveCursor(g.position.row, g.position.col)
 		if g.status == GhostStatusNormal {
@@ -180,14 +174,16 @@ func printScreen() {
 			fmt.Printf(cfg.GhostBlue)
 		}
 	}
+	ghostsStatusMx.RUnlock()
+
 	moveCursor(len(maze)+1, 0)
 
-	livesRemaining := strconv.Itoa(lives)
+	livesRemaining := strconv.Itoa(lives) // converts lives int to a string
 	if cfg.UseEmoji {
 		livesRemaining = getLivesAsEmoji()
 	}
-	fmt.Printf("%vDots: %v\t %vGhosts: %v\r\n", cfg.Dot, numDots, cfg.Ghost, len(ghosts))
-	fmt.Println("Score:", score, "\tLives:", livesRemaining)
+	fmt.Printf("%sDot: %d \t%sGhosts: %d\r\n", cfg.Dot, numDots, cfg.Ghost, len(ghosts))
+	fmt.Println("Score: ", score, "\tLives: ", livesRemaining)
 }
 
 func makeMove(oldRow, oldCol int, dir string) (newRow, newCol int) {
@@ -195,33 +191,36 @@ func makeMove(oldRow, oldCol int, dir string) (newRow, newCol int) {
 
 	switch dir {
 	case "UP":
-		newRow = newRow - 1
+		newRow -= 1
 		if newRow < 0 {
 			newRow = len(maze) - 1
 		}
 	case "DOWN":
-		newRow = newRow + 1
-		if newRow == len(maze) {
+		newRow += 1
+		if newRow >= len(maze)-1 {
 			newRow = 0
 		}
 	case "RIGHT":
-		newCol = newCol + 1
-		if newCol == len(maze[0]) {
+		newCol += 1
+		if newCol >= len(maze[0]) {
 			newCol = 0
 		}
 	case "LEFT":
-		newCol = newCol - 1
+		newCol -= 1
 		if newCol < 0 {
 			newCol = len(maze[0]) - 1
 		}
 	}
-
-	if maze[newRow][newCol] == '#' {
-		newRow = oldRow
-		newCol = oldCol
+	// 确保新位置在迷宫范围内
+	if newRow < 0 || newRow >= len(maze) || newCol < 0 || newCol >= len(maze[0]) {
+		return oldRow, oldCol // 如果新位置越界，不进行移动
 	}
 
-	return
+	if maze[newRow][newCol] == '#' {
+		return oldRow, oldCol // 如果新位置是墙，不进行移动
+	}
+
+	return newRow, newCol
 }
 
 func movePlayer(dir string) {
@@ -260,16 +259,14 @@ func updateGhosts(ghosts []*ghost, ghostStatus GhostStatus) {
 func processPill() {
 	pillMx.Lock()
 	updateGhosts(ghosts, GhostStatusBlue)
-	for _, g := range ghosts {
-		g.status = GhostStatusBlue
+	if pillTimer != nil {
+		pillTimer.Stop()
 	}
 	pillTimer = time.NewTimer(time.Second * cfg.PillDuration)
 	pillMx.Unlock()
 	<-pillTimer.C
 	pillMx.Lock()
-	for _, g := range ghosts {
-		g.status = GhostStatusNormal
-	}
+	pillTimer.Stop()
 	updateGhosts(ghosts, GhostStatusNormal)
 	pillMx.Unlock()
 }
@@ -320,9 +317,24 @@ func moveCursor(row, col int) {
 	}
 }
 
+// File Path
+var fileMaze = "data/maze/maze02.txt"
+
+// config flag
+var (
+	configFile = flag.String("config-file", "config.json", "path to custom configuration file")
+	mazeFile   = flag.String("maze-file", fileMaze, "path to a custom maze file")
+)
+
 func main() {
+	fileMaze = "data/maze/maze02.txt"
+	if len(os.Args) >= 2 {
+		fileMaze = os.Args[1]
+	}
+
 	flag.Parse()
-	// initialise game
+
+	// initialize game
 	initialise()
 	defer cleanup()
 
@@ -332,28 +344,28 @@ func main() {
 		log.Println("failed to load maze:", err)
 		return
 	}
-	// load config
+
 	err = loadConfig(*configFile)
 	if err != nil {
 		log.Println("failed to load configuration:", err)
 		return
 	}
-	// process input
-	input := make(chan string, 128)
+
+	// process input (async)
+	input := make(chan string)
 	go func(ch chan<- string) {
 		for {
-			str, err := readInput()
+			input, err := readInput()
 			if err != nil {
-				log.Println("failed to read input:", err)
+				log.Print("error reading input:", err)
 				ch <- "ESC"
 			}
-			ch <- str
+			ch <- input
 		}
 	}(input)
+
 	// game loop
 	for {
-		// update screen
-		printScreen()
 		// process movement
 		select {
 		case inp := <-input:
@@ -363,22 +375,22 @@ func main() {
 			movePlayer(inp)
 		default:
 		}
+
 		moveGhosts()
-		time.Sleep(200 * time.Millisecond)
+
 		// process collisions
 		for _, g := range ghosts {
 			if player.row == g.position.row && player.col == g.position.col {
 				ghostsStatusMx.RLock()
 				if g.status == GhostStatusNormal {
-					lives -= 1
+					lives = lives - 1
 					if lives != 0 {
-						moveCursor(player.row, player.row)
+						moveCursor(player.row, player.col)
 						fmt.Print(cfg.Death)
 						moveCursor(len(maze)+2, 0)
 						ghostsStatusMx.RUnlock()
 						updateGhosts(ghosts, GhostStatusNormal)
-						// resetting player address
-						time.Sleep(1 * time.Second)
+						time.Sleep(1000 * time.Millisecond) // dramatic pause before reseting player position
 						player.row, player.col = player.startRow, player.startCol
 					}
 				} else if g.status == GhostStatusBlue {
@@ -388,18 +400,23 @@ func main() {
 				}
 			}
 		}
+
+		// update screen
 		printScreen()
+
 		// check game over
-		if numDots == 0 || lives == 0 {
+		if numDots == 0 || lives <= 0 {
 			if lives == 0 {
 				moveCursor(player.row, player.col)
 				fmt.Print(cfg.Death)
+				moveCursor(player.startRow, player.startCol-1)
+				fmt.Print("GAME OVER")
 				moveCursor(len(maze)+2, 0)
 			}
 			break
 		}
 
 		// repeat
-		time.Sleep(100 * time.Millisecond)
+		time.Sleep(200 * time.Millisecond)
 	}
 }

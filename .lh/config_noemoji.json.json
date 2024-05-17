@@ -3,11 +3,15 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 0,
+            "activePatchIndex": 1,
             "patches": [
                 {
                     "date": 1712976044609,
                     "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1715928393185,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,11 @@\n-{\n-    \"player\": \"P\",\n-    \"ghost\": \"G\",\n-    \"wall\": \"#\",\n-    \"dot\": \".\",\n-    \"pill\": \"X\",\n-    \"space\": \" \",\n-    \"use_emoji\": false\n-}\n+{\r\n+    \"player\": \"P\",\r\n+    \"ghost\": \"G\",\r\n+    \"ghost_blue\": \"B\",\r\n+    \"wall\": \"#\",\r\n+    \"dot\": \".\",\r\n+    \"pill\": \"X\",\r\n+    \"space\": \" \",\r\n+    \"use_emoji\": false,\r\n+    \"pill_duration_secs\": 10\r\n+}\r\n"
                 }
             ],
             "date": 1712976044609,
